@@ -26,7 +26,7 @@ Approximates the time evolution of the 4D state vector:
 | b728  | 20.002    |                     
 
 ## Quick Start
-python main.py --exp b693
+python pinn_forward/main.py --exp b693
 
 # Friction PINN – Inverse Solver
 Physics-Informed Neural Network for **inverse estimation** of effective normal stress (σₙ₀) in rate-and-state friction experiments with dilatancy and pore-pressure evolution.
@@ -43,4 +43,4 @@ Uses laboratory friction data (shear stress or apparent friction coefficient tim
 - Only L-BFGS phase (Adam commented out for better convergence on stiff inverse problems)
 
 ## Quick Start
-python main.py --exp b728
+python pinn_backward/main.py --exp b728
