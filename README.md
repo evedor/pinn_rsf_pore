@@ -43,4 +43,4 @@ Uses laboratory friction data (shear stress or apparent friction coefficient tim
 - Only L-BFGS phase (Adam commented out for better convergence on stiff inverse problems)
 
 ## Quick Start
-python pinn_backward/main.py --exp b728
+python pinn_backward/main.py --exp b693
