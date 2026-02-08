@@ -40,7 +40,6 @@ Uses laboratory friction data (shear stress or apparent friction coefficient tim
 
 - σₙ₀ is now a learnable `nn.Parameter` (initialized at 30 MPa)  
 - Data loss term matches predicted friction → measured friction from file  
-- Only L-BFGS phase (Adam commented out for better convergence on stiff inverse problems)
 
 ## Quick Start
 python pinn_backward/main.py --exp b693
