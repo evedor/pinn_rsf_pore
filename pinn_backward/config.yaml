@@ -1,0 +1,129 @@
+seed: 42
+
+# ── 实验配置 ────────────────────────────────────────────────
+# sigma_n0 normal stress
+# t0_values is initial condition, which can be drived from laboratory experiment
+experiments:
+  b693:
+    sigma_n0: !!float 17.003e6
+    t0_values:
+      - [0.0014851490120946023,-0.3807304456678973,0.0001626260574953936,-0.3814333184281347]
+
+  b694:
+    sigma_n0: !!float   15.400e6
+    t0_values:
+      - [0.0009415287569312299,-0.42068935779155475,9.862658982257537e-5,-0.42111994979775097]
+
+  b695:
+    sigma_n0:  !!float   17.909e6
+    t0_values:
+      - [0.002901539096930303,-0.3614609273962448,0.00010966279689604387,-0.36217420679195494]
+
+  b696:
+    sigma_n0: !!float 14.408e6
+    t0_values:
+      - [0.0006833411003086176,-0.4496035023599303,0.0001323123418286237,-0.4501056028614868]
+
+  b697:
+    sigma_n0: !!float 16.389e6
+    t0_values:
+      - [0.0016322905779260124,-0.3950013177889193,0.00018671646321073438,-0.3957066142894091]
+
+  b698:
+    sigma_n0: !!float 17.379e6
+    t0_values:
+      - [0.002020736363693251,-0.3722963410003473,0.00020259833307486789,-0.37319573008870105]
+
+  b721:
+    sigma_n0: !!float 21.985e6
+    t0_values:
+      - [-1.0605299532572454,0.5497537974376105,-2.9260218204173722,-0.2560185490406483]
+
+  b722:
+    sigma_n0: !!float 14.000e6
+    t0_values:
+      - [0.001375699944110003,-0.4623704462822518,0.00022284062371582175,-0.4632467564124325]
+
+  b724:
+    sigma_n0: !!float 13.600e6
+    t0_values:
+      - [0.0005799240889098616,-0.47617821252581694,0.0001896668406230236,-0.47684318777008794]
+
+  b726:
+    sigma_n0: !!float 15.001e6
+    t0_values:
+      - [0.0008249761357316426,-0.4317808029593813,0.00013736189378685482,-0.43231720550535413]
+
+  b728:
+    sigma_n0: !!float 20.002e6
+    t0_values:
+      - [-0.9700001020124043,0.521799895374369,-3.3897528869213254,-0.27633055812301754]
+
+
+# ── 物理参数 ────────────────────────────────────────────────
+physics:
+  v_0: !!float 10e-6                  # Loading velocity [m/s]
+  k: !!float 14.8e9                   # Spring stiffness [Pa/m]
+  beta_1: 1.2                 # b₁/a₀ [non-dim]
+  L_1: !!float 3e-6                   # Critical distance for θ₁ [m]
+  rho: 0.1
+  a: 0.01                     # Friction direct effect [non-dim]
+  mu_0: 0.64                  # Static friction coefficient [non-dim]
+  G: !!float 31e9                     # Rigidity modulus of quartz [Pa]
+  rho_v: !!float 2.65e3               # Density of quartz [kg/m^3]
+  p_0: !!float 1.01325e5              # Reference pressure [Pa]
+  beta_a: !!float 1e-9
+  beta_m: !!float 1e-11
+  phi_0: 0.075
+  epsilon: !!float -0.017e-3          # dilatancy/compressibility
+  c_0: 10                     # Diffusivity [1/s]
+
+# ── 训练相关 ────────────────────────────────────────────────
+training:
+  device: "mps"               # 可选: cuda, mps, cpu
+  time:
+    start: 0.0
+    end: 6.0
+    step: 0.1
+
+  model:
+    input_size: 1
+    hidden_size: 200
+    output_size: 4
+    depth: 4
+    activation: "Tanh"
+
+  optimizer:
+    adam:
+      lr: 0.001
+      steps: 4000
+
+    lbfgs:
+      lr: 0.001
+      max_iter: 400000
+      max_eval: 400000
+      history_size: 50
+      tolerance_grad: !!float 1.0e-15
+      tolerance_change: !!float 1.0e-15
+      line_search_fn: "strong_wolfe"
+
+  loss:
+    boundary_weight: 0.6
+    residual_clamp_min: 1.0
+    residual_clamp_max: 10.0
+
+  logging:
+    print_every: 50
+    save_best_model: true
+    best_model_path: "best_model.pth"
+    loss_plot_path: "loss_plot.pdf"
+
+
+evaluate:
+  time:
+    start: 0.0
+    end: 6.0
+    step: 0.01
+
+  logging:
+    y_plot_path: "y_plot.pdf"
