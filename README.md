@@ -26,7 +26,8 @@ Approximates the time evolution of the 4D state vector:
 | b728  | 20.002    |                     
 
 ## Quick Start
-python pinn_forward/main.py --exp b693
+cd ./pinn_forward
+python main.py --exp b693
 
 # Friction PINN – Inverse Solver
 Physics-Informed Neural Network for **inverse estimation** of effective normal stress (σₙ₀) in rate-and-state friction experiments with dilatancy and pore-pressure evolution.
@@ -42,4 +43,11 @@ Uses laboratory friction data (shear stress or apparent friction coefficient tim
 - Data loss term matches predicted friction → measured friction from file  
 
 ## Quick Start
+cd ./pinn_backward
 python pinn_backward/main.py --exp b693
+
+## Data source
+The initial conditions for each experiment in the forward modeling, as well as the laboratory data files required for the inversion, can be obtained in the following two ways:
+
+1. The laboratory measurement data results can be found on the Open Science Framework (OSF) with DOI 10.17605/OSF.IO/9DQH7
+2. The code to reproduce the data using the Runge-Kutta method is available at: https://github.com/Geolandi/labquakesde
