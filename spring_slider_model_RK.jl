@@ -182,6 +182,18 @@ for ii = 1:n_exp
     ##################
     prob_sde_RS2_compaction = SDEProblem(RS2_compaction,σ_RS2_compaction,state₀,(tin,tfin),p)
     sol = solve(prob_sde_RS2_compaction, saveat=sampling_rate,maxiters=maxiters)
+
+
+	xs = [row[1] for row in sol.u]
+    ys = [row[2] for row in sol.u]
+    zs = [row[3] for row in sol.u]
+    us = [row[4] for row in sol.u]
+
+    v_phys   = v₀ .* exp.(xs)
+    tau_phys = ys .* (a * σₙ₀[ii]) .+ (μ₀ * σₙ₀[ii])
+    phi_phys = zs .* (λ * β * σₙ₀[ii]) .+ ϕ₀
+    p_phys   = -λ * σₙ₀[ii] .* us
+    phys_matrix = hcat(v_phys, tau_phys, phi_phys, p_phys)
     
     ####################
     ### Save results ###
@@ -191,6 +203,7 @@ for ii = 1:n_exp
 
     writedlm(joinpath(outdir, "sol_t.txt"), sol.t)
     writedlm(joinpath(outdir, "solution_xyzu.txt"), sol.u)
+	writedlm(joinpath(outdir, "solution_vtfp.txt"), phys_matrix)
     writedlm(joinpath(outdir, "a.txt"), a)
     writedlm(joinpath(outdir, "sigman0.txt"), σₙ₀[ii])
     writedlm(joinpath(outdir, "L1.txt"), L₁)
