@@ -51,3 +51,6 @@ The initial conditions for each experiment in the forward modeling, as well as t
 
 1. The laboratory measurement data results can be found on the Open Science Framework (OSF) with DOI 10.17605/OSF.IO/9DQH7
 2. The code to reproduce the data using the Runge-Kutta method is available at: https://github.com/Geolandi/labquakesde
+
+We have provided a spring_slider_model_RK.jl file is used to quickly generate the corresponding files of the paper, it is adapted from https://github.com/Geolandi/labquakesde.
+It should be noted that the initial conditions of the Forward Solver and the observation files of the Backward Solver are randomly selected from the results of the spring_slider_model_RK.jl file. As long as they are stable after the preheating stage, they can be randomly selected. Random selection does not affect the experimental results of the paper.
